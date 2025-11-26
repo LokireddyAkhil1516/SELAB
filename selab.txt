@@ -1,0 +1,332 @@
+check jenkins version
+jenkins --version
+http://localhost:8080
+Great! Since you already created a Jenkins account and logged in successfully, your Jenkins setup is complete 🎉
+Open Jenkins dashboard
+
+Click “New Item”
+
+Enter a name:
+WebApp-Pipeline
+
+Select Pipeline
+
+Click OK
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/LokireddyAkhil1516/SELAB.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deployment simulated successfully.'
+            }
+        }
+
+        stage('Post-Deployment Check') {
+            steps {
+                echo 'Application deployed successfully!'
+            }
+        }
+    }
+}
+
+
+
+
+
+How to Build a New Thing (New Project/Pipeline) in Jenkins
+
+Step 1: Go to the Jenkins home page where all jobs are listed.
+
+Step 2: Click on “New Item” on the left side.
+
+Step 3: Enter a name for your new job. This can be anything like MySecondPipeline or TestProject etc.
+
+Step 4: Select “Pipeline” as the type of job. Then click OK.
+
+Step 5: You will now see the configuration page. Scroll down until you find the Pipeline Script section.
+
+Step 6: In the Pipeline script box, write or paste the pipeline script you want Jenkins to run. This script will decide what your new build does.
+
+Step 7: Click Save to store the new job.
+
+Step 8: After saving, click “Build Now” from the left side of the job page.
+
+Step 9: Jenkins will start the new build. You can click on the build number to see console output or errors if any.
+
+Step 10: After the build is done, you will see a green or blue tick if it is successful. This means your new project has been built successfully.
+
+
+
+
+
+
+
+Plain Text Steps for Full Jenkins + Tomcat Deployment Process
+
+Step 1: First check whether Jenkins is installed on your system by checking the Jenkins version in the terminal. If the terminal says command not found, then Jenkins is not installed and needs to be installed.
+
+Step 2: Install Jenkins using Homebrew by installing the LTS version. After installation, start Jenkins as a background service and ensure it is running without errors.
+
+Step 3: Open the Jenkins dashboard in the browser using the localhost URL. The first time you open Jenkins, enter the initial admin password from the secrets folder, install all recommended plugins, and create an admin user account to log in.
+
+Step 4: Install Apache Tomcat on your system using Homebrew. After installation, start the Tomcat service and open the Tomcat welcome page in the browser to confirm the server is running properly.
+
+Step 5: Download a sample web application WAR file and deploy it to Tomcat. To deploy, copy the WAR file into the Tomcat webapps folder. Tomcat automatically extracts and deploys the application. Verify that the deployed application is running by opening its URL in the browser.
+
+Step 6: Download or create your own servlet-based web application (AkhilApp_v2.war). Once the WAR file is ready, deploy it to Tomcat by placing it in the Tomcat webapps directory. Confirm the application works by checking the servlet URL and JSP page in the browser.
+
+Step 7: Create a new public GitHub repository and add at least one file to ensure the main branch exists. This repository will be used in the Jenkins pipeline.
+
+Step 8: Go to the Jenkins dashboard and create a new job by clicking “New Item.” Enter a job name and select “Pipeline” as the type of job. Then proceed to the configuration page.
+
+Step 9: In the pipeline configuration page, scroll to the Pipeline Script section and write a Jenkins pipeline script that performs the following tasks: cloning the GitHub repository, simulating a build step, copying the WAR file into the Tomcat webapps folder for deployment, and showing a deployment success message.
+
+Step 10: Save the Jenkins job configuration and click on “Build Now.” Jenkins will run the pipeline, clone the repository, execute the build stage, deploy the WAR file to Tomcat, and complete the final stage.
+
+Step 11: Open the console output of the Jenkins build to verify each action done by Jenkins, such as cloning the repository, running build steps, copying the WAR file, and showing the deployment message. This confirms that Jenkins executed all steps correctly.
+
+Step 12: Open the deployed servlet application again in the browser using the Tomcat URL. If the application opens successfully, this confirms that both Tomcat and Jenkins deployment steps are working as expected.
+
+Step 13: Finally, check the Jenkins pipeline view to ensure the stages are shown clearly and marked as successful. A green or blue tick next to the build number confirms the entire pipeline ran without errors
+
+
+
+
+
+
+Plain Text Steps for Full Minikube + Nginx Deployment Process
+
+Step 1: First check whether Minikube is installed on your system by running the Minikube version command in the terminal. If the terminal shows “command not found,” then Minikube is not installed and needs to be installed.
+
+Step 2: Install Minikube on your system depending on your operating system. If you are using Ubuntu, install it using the official Minikube binary. If you are using Windows, install Minikube using the Minikube installer or via Chocolatey. After installation, ensure that Minikube is added to your system path.
+
+Step 3: Install Docker on your system because Minikube uses Docker as the container driver. After installing Docker, start the Docker service and verify that the Docker command works properly.
+
+Step 4: Start the Minikube Kubernetes cluster using the Docker driver. When the cluster starts successfully, it will automatically configure kubectl and set up a single-node Kubernetes environment.
+
+Step 5: Deploy the Nginx server in Kubernetes by creating an Nginx deployment. This deployment creates an Nginx pod that runs inside your Minikube cluster.
+
+Step 6: Expose the Nginx deployment as a NodePort service so it can be accessed from outside the cluster. This creates a service with a port that maps to the Nginx pod inside Kubernetes.
+
+Step 7: Retrieve the service URL using the Minikube service command. This command provides the exact link that you can open in the browser to view the Nginx welcome page.
+
+Step 8: Open the Nginx service URL in the browser. If the Nginx welcome page is displayed, it confirms that the service is deployed successfully and accessible from outside the cluster.
+
+Step 9: Scale the Nginx deployment to four replicas. This increases the number of Nginx pods running inside the Kubernetes cluster from one to four.
+
+Step 10: Verify that the scaling was successful by listing all the pods in the cluster. You should see four running Nginx pods, each representing one replica of the deployment.
+
+Step 11: Check the services again to ensure that the Nginx NodePort service is still available and pointing to the same deployment.
+
+Step 12: Capture the required screenshots for your assignment, including the Nginx service page in the browser and the output of the kubectl get pods command showing four running pods.
+
+
+
+
+Here is EXACTLY how to generate a WAR using Maven (Plain Text Steps Like Before)
+Step 1: Install Maven on your system (macOS, Ubuntu, or Windows).
+
+Check Maven installation by running the Maven version command. If it shows command not found, install Maven on your system.
+
+Step 2: Create a Maven web application project using the Maven command. This command creates a standard Java web application folder structure with the required files and directories.
+Step 3: Open the newly created Maven project and place your servlet Java file inside the src/main/java folder. Also add your JSP files to the src/main/webapp folder.
+Step 4: Update the web.xml file inside the src/main/webapp/WEB-INF folder to include the servlet name, servlet class, and URL mapping.
+Step 5: Open the pom.xml file and make sure that the packaging type is set to WAR. Also ensure that the required servlet dependencies are included in the pom file.
+Step 6: Once the project is ready, run the Maven build command inside the project directory. Maven will compile the Java files, process the web resources, and finally generate a WAR file inside the target folder.
+Step 7: Go to the target folder of your Maven project and confirm that the .war file has been created successfully. This WAR file can now be deployed on Tomcat.
+Step 8: Copy the generated WAR file into the Tomcat webapps directory. Tomcat will automatically extract and deploy the application.
+Step 9: Open the deployed application in the browser using the URL corresponding to your WAR filename and servlet mapping. If the servlet and JSP pages open successfully, the Maven WAR build is working correctly.
+Step 10: Use this Maven-based WAR file inside your Jenkins pipeline. The Jenkins pipeline should run Maven, generate the WAR file, and deploy it to Tomcat automatically.
+
+
+
+
+
+Q1. Working with Minikube (Nginx Service Deployment) [25 Marks]
+Scenario: Deploy an Nginx service on Minikube.
+
+Task:
+
+Start Minikube.
+
+Deploy Nginx.
+
+Expose and access service.
+
+Scale up the deployment to 4 and show the running pods.
+
+Expected Output:
+
+Commands used.
+
+Screenshot of Nginx service.
+
+Q2. Create an EC2 Instance with Ubuntu and Deploy an Application [25 Marks]
+Scenario: Deploy a application from your github on an AWS EC2 Ubuntu instance.
+
+Task:
+
+Launch EC2.
+
+Install docker and other required softwares.
+
+Clone your application from github.
+
+Write the corresponding dockerfile.
+
+Build/Push the image and run it.
+
+Show the deployment.
+
+Expected Output:
+
+EC2 instance details.
+
+Demonstration of the deployment using public ip address.
+
+Q3. UML Design
+Task: Draw the UML class diagram for the Online Ticket Reservation System (OTRS) using StarUML.
+
+Expected Output:
+
+Major classes.
+
+Core relationships, attributes and functionalities.
+
+A clear UML class Diagram showing relationships between actors and use cases.
+
+Q4. Jenkins Pipeline for a Web Project [25 Marks]
+Scenario: Automate the build and deployment of a web project using Jenkins.
+
+Task:
+
+Clone Github repository.
+
+Configure Tomcat web server.
+
+Copy web app components on the Webserver.
+
+Create the Pipeline View using Jenkins.
+
+Expected Output:
+
+Jenkins pipeline summary.
+
+Proof of web app running locally.
+
+
+
+cd ~/Downloads
+chmod 400 docker-key.pem
+ssh -i docker-key.pem ubuntu@3.89.56.226
+Are you sure you want to continue connecting (yes/no)? - yes
+sudo apt update -y
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+sudo usermod -aG docker $USER
+newgrp docker
+docker ps
+git clone https://github.com/LokireddyAkhil1516/SELAB.git
+cd SELAB
+echo '<h1>Hello from Akhil EC2 + Docker Deployment!</h1>' > index.html
+ls
+E.txt
+index.html
+nano Dockerfile
+FROM nginx:latest
+COPY index.html /usr/share/nginx/html/index.html
+CTRL + O → Enter
+
+CTRL + X
+sudo docker build -t akhil-webapp .
+sudo docker run -d -p 80:80 akhil-webapp
+http://3.89.56.226
+
+
+cd ~/Downloads
+chmod 400 docker-key.pem
+ssh -i docker-key.pem ubuntu@3.89.56.226
+Are you sure you want to continue connecting (yes/no)? - yes
+
+sudo apt update -y
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+
+sudo usermod -aG docker $USER
+newgrp docker
+docker ps
+
+git clone https://github.com/LokireddyAkhil1516/SELAB.git
+cd SELAB
+
+mkdir node-app
+cd node-app
+
+nano app.js
+// paste below code
+const http = require('http');
+const server = http.createServer((req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello from Akhil Node.js App running in Docker on EC2!');
+});
+server.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+CTRL + O → Enter
+CTRL + X
+
+nano package.json
+// paste below code
+{
+  "name": "akhil-nodeapp",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
+CTRL + O → Enter
+CTRL + X
+
+nano Dockerfile
+// paste below code
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["npm", "start"]
+EXPOSE 3000
+CTRL + O → Enter
+CTRL + X
+
+sudo docker build -t akhil-nodeapp .
+sudo docker run -d -p 3000:3000 akhil-nodeapp
+
+sudo docker ps
+# should show: 0.0.0.0:3000->3000/tcp
+
+Open browser:
+http://3.89.56.226:3000
+
+
+
+
+https://chatgpt.com/share/6925ddaf-f8d0-800f-9080-2b657246b3e8
