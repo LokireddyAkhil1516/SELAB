@@ -1,0 +1,364 @@
+✅ (A) Jenkins Pipeline Script Job — Extremely Detailed
+
+(hyper-detailed like a teacher sitting beside you)
+(Based on Pipeline Script experiment pages in PDF) 
+
+SE_Record_final
+
+✅ (B) Minikube Kubernetes Experiment — Extremely Detailed
+
+(start → deploy → expose → scale → monitor)
+(Based on Minikube experiment pages in PDF) 
+
+SE_Record_final
+
+⭐ PART A — JENKINS PIPELINE USING SCRIPT (ULTRA DETAILED)
+1. Open Jenkins
+
+Open any browser (Chrome/Firefox).
+
+In address bar type:
+
+http://localhost:8888/
+
+
+Press Enter.
+
+Jenkins dashboard loads.
+
+Enter:
+
+Username
+
+Password
+
+Press Sign in.
+
+2. Create a New Pipeline Job
+
+On left sidebar, click New Item.
+
+A page opens asking for project name.
+
+In the box type:
+
+pipeline_script
+
+
+Below, a list of job types appears.
+
+Click Pipeline
+
+Scroll down (if needed).
+
+Click OK.
+
+You are now inside job configuration page.
+
+3. Add Description
+
+At the top you see a text box labeled Description.
+
+Click inside it.
+
+Enter something like:
+
+This job uses a Jenkins Pipeline Script to build my Maven Java/Web Project from GitHub.
+
+4. Go to Pipeline Section
+
+Scroll down (slowly) until you see a big heading:
+
+Pipeline
+
+Under this:
+
+Find the dropdown labeled Definition.
+
+Click it.
+
+Select Pipeline script
+(NOT “Pipeline script from SCM” — that is different).
+
+5. Write the Jenkins Pipeline Script
+
+Inside the large scripting text box, delete any default content.
+
+Paste this example (fully working):
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Source Code') {
+            steps {
+                echo "Cloning repository..."
+                git branch: 'main', url: 'https://github.com/your-username/your-maven-project.git'
+            }
+        }
+
+        stage('Build Project') {
+            steps {
+                echo "Running mvn clean package..."
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo "Running mvn test..."
+                sh 'mvn test'
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                echo "Archiving build artifacts..."
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline executed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check console output."
+        }
+    }
+}
+
+6. Apply and Save
+
+Scroll to bottom.
+
+Click Apply (blue button).
+
+Then click Save.
+
+You will be taken to the job’s main page.
+
+7. Run the Pipeline
+
+On left sidebar click Build Now.
+
+Look at bottom-left panel “Build History”.
+
+You will see #1 (or next build number).
+
+A progress indicator keeps spinning.
+
+To view logs:
+
+Click the build number (#1).
+
+Click Console Output.
+
+You will see:
+
+"Checkout Source Code"
+
+"Build Project"
+
+"Run Tests"
+
+"Archive Artifacts"
+
+At the end, if successful:
+
+Finished: SUCCESS
+
+⭐ PART B — MINIKUBE + KUBERNETES EXPERIMENT (ULTRA DETAILED)
+
+(matches Minikube pages from PDF) 
+
+SE_Record_final
+
+1. Start Minikube
+On Terminal (CMD/PowerShell/Linux Terminal):
+
+Open terminal.
+
+Type:
+
+minikube start
+
+
+Press Enter.
+
+What happens:
+
+Minikube downloads Kubernetes components.
+
+Starts a single-node cluster.
+
+Shows message:
+
+Done! kubectl is now configured to use "minikube" cluster.
+
+2. Check Minikube Status
+
+Type:
+
+minikube status
+
+
+You should see:
+
+host: running
+
+kubelet: running
+
+apiserver: running
+
+kubeconfig: configured
+
+3. Create NGINX Deployment
+Use kubectl:
+kubectl create deployment nginx --image=nginx
+
+
+Explanation:
+
+This creates a deployment named nginx.
+
+Uses image “nginx”.
+
+Automatically pulls from Docker Hub.
+
+4. Verify Deployment & Pods
+
+Run:
+
+kubectl get deployments
+
+
+Then:
+
+kubectl get pods
+
+
+You will see something like:
+
+nginx-xxxxx   1/1   Running   0   20s
+
+5. Expose Deployment as a Service
+
+Type:
+
+kubectl expose deployment nginx --type=NodePort --port=80
+
+
+Explanation:
+
+--port=80 container port
+
+NodePort allows access from host machine
+
+6. Get Service Port
+
+Type:
+
+kubectl get svc
+
+
+You will see something like:
+
+nginx   NodePort   80:3xxxx/TCP
+
+
+That 3xxxx is the NodePort.
+
+7. Access NGINX in Browser
+
+To get direct URL:
+
+minikube service nginx --url
+
+
+It prints:
+
+http://127.0.0.1:xxxxx
+
+
+Open that in your browser → You will see NGINX welcome page.
+
+8. Scale Kubernetes Deployment
+
+To increase pods:
+
+kubectl scale deployment nginx --replicas=3
+
+
+Check:
+
+kubectl get pods
+
+
+You will now see 3 pods.
+
+9. Edit or Update NGINX
+
+If you want to update HTML content of NGINX, create your own Docker image first:
+
+Steps:
+
+Create a folder:
+
+mkdir custom-nginx
+cd custom-nginx
+
+
+Create file:
+
+nano index.html
+
+
+Put:
+
+<h1>Hello from Minikube!</h1>
+
+
+Create Dockerfile:
+
+nano Dockerfile
+
+
+Add:
+
+FROM nginx:latest
+COPY index.html /usr/share/nginx/html/index.html
+
+
+Build image:
+
+docker build -t mynginx:v1 .
+
+
+Use image in Kubernetes:
+
+kubectl set image deployment/nginx nginx=mynginx:v1
+
+10. Run Nagios Monitoring Tool (from Docker)
+docker run -d --name nagios -p 8080:80 jasonrivers/nagios
+
+
+Access:
+
+http://localhost:8080
+
+
+Use default credentials:
+
+user: nagiosadmin
+
+password: nagios
+
+11. Stop Minikube
+minikube stop
+
+
+If you want to delete cluster:
+
+minikube delete
