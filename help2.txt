@@ -1,0 +1,498 @@
+✅ PART 1 — DETAILED MAVEN JAVA PROJECT (CLICK-BY-CLICK)
+
+(Derived from Maven experiment pages in the PDF) 
+
+SE_Record_final
+
+A. Creating a Maven Java Project (in Eclipse)
+1. Open Eclipse IDE
+
+Double-click Eclipse icon.
+
+Wait for workspace to load.
+
+2. Create Maven Project
+
+On top left menu: Click File
+
+Hover over New
+
+Click Other…
+
+In the dialog box, expand Maven
+
+Click Maven Project
+
+Click Next
+
+3. Choose Workspace
+
+Eclipse asks: “Create a simple project (skip archetype selection)?”
+
+Do NOT check it.
+
+Click Next
+
+4. Choose Archetype
+
+In the filter box at top, type:
+quickstart
+
+Select:
+maven-archetype-quickstart
+
+Click Next
+
+5. Enter Project Coordinates
+
+Fill the fields:
+
+Field	What to enter
+Group Id	com.example (or college ID)
+Artifact Id	my-java-app
+Version	leave default
+Package	auto-fills based on Group Id
+
+Click Finish
+
+6. Let Eclipse Load the Project
+
+Wait until the progress bar (“Building workspace”) completes.
+
+Project appears in Project Explorer.
+
+B. Writing Code in Maven Java Project
+1. Expand Project Structure
+
+In left panel:
+
+Expand my-java-app
+
+Expand src/main/java
+
+Expand the package (e.g., com.example)
+
+Double-click App.java
+
+2. Edit App.java
+
+Add your desired Java code.
+
+After editing:
+
+Press Ctrl + S to save.
+
+C. Build Project Using Maven
+1. Open Git Bash in Project Folder
+
+Right click the project folder in Eclipse.
+
+Select Show in System Explorer (Windows) or Show in Finder (Mac).
+
+Navigate inside project folder.
+
+Right-click empty area → select Git Bash Here
+
+2. Run Maven Commands
+
+Type:
+
+mvn clean
+mvn compile
+mvn test
+mvn package
+
+
+If successful:
+
+You will see BUILD SUCCESS
+
+A JAR file appears in target folder.
+
+D. Push Maven Java Project to GitHub
+1. In Git Bash
+git init
+git add .
+git commit -m "First Maven Java commit"
+
+2. Create Repository on GitHub
+
+Open github.com
+
+Click New Repository
+
+Enter name: maven-java-demo
+
+Select Private or Public
+
+Click Create Repository
+
+3. Connect Local Repo
+
+Copy GitHub commands:
+
+git remote add origin <repo-url>
+git branch -M main
+git push -u origin main
+
+✅ PART 2 — MAVEN WEB PROJECT (VERY DETAILED)
+
+(Derived from maven-web creation pages in PDF) 
+
+SE_Record_final
+
+A. Create Maven Web App
+1. In Eclipse
+
+Click File → New → Other…
+
+Expand Maven
+
+Select Maven Project
+
+Click Next
+
+Click Next again (keep default workspace)
+
+2. Select Web Archetype
+
+In filter box type:
+webapp
+
+Select:
+maven-archetype-webapp
+
+Click Next
+
+3. Enter Coordinates
+Field	Value
+Group Id	com.example.web
+Artifact Id	my-webapp
+Version	default
+
+Click Finish
+
+B. Create Web Page
+1. Expand Folder Structure
+
+Expand my-webapp
+
+Expand src/main/webapp
+
+2. Open index.jsp or index.html
+
+Double click index.jsp
+
+Replace existing content with your webpage HTML
+
+3. Save file
+
+Press Ctrl + S
+
+C. Run Maven Web Project
+1. Right-click Project
+
+Right-click my-webapp
+
+Click Run As
+
+Select Run on Server
+
+2. Select Apache Tomcat
+
+Choose Tomcat v9.0 or your installed version
+
+Click Next
+
+Add the web project to “Configured” list
+
+Click Finish
+
+3. Web Browser Opens
+
+You will see:
+
+http://localhost:8080/my-webapp
+
+D. Push Maven Web Project to GitHub
+
+Same procedure as Java project:
+
+git init
+git add .
+git commit -m "Web App Initial Commit"
+git remote add origin <repo-url>
+git push -u origin main
+
+✅ PART 3 — JENKINS AUTOMATION (HYPER-DETAILED)
+
+(Follows Jenkins Automation section from PDF, but with much more user-friendly detail) 
+
+SE_Record_final
+
+A. Open Jenkins
+1. Start Jenkins
+
+Type in browser:
+http://localhost:8888/
+
+Press Enter.
+
+2. Login
+
+Enter:
+
+Username
+
+Password (admin or your configured password)
+
+B. Create MavenJava Job
+1. Create New Job
+
+On left menu click New Item
+
+In text box enter:
+MavenJava
+
+Select Freestyle Project
+
+Click OK
+
+C. Configure MavenJava Job
+1. Add Description
+
+Scroll to “Description”
+
+Type:
+“Build Maven Java Project”
+
+2. Add Git Repository
+
+Scroll to Source Code Management
+
+Select Git
+
+In Repository URL enter your GitHub link:
+
+https://github.com/username/maven-java-demo.git
+
+
+Leave credentials blank if public or add if private.
+
+3. Build Steps
+
+Scroll to Build
+
+Click Add build step
+
+Select Invoke top-level Maven targets
+
+In Maven Version dropdown select: MAVEN_HOME
+
+In Goals box type:
+
+clean install
+
+4. Post Build Actions
+
+Scroll to Post-build Actions
+
+Click Add post-build action
+
+Select Archive the artifacts
+
+In File to archive field type:
+
+**/*
+
+
+Click Add post-build action
+
+Choose Build other projects
+
+Enter:
+
+MavenJava_Test
+
+5. Save Job
+
+Click Apply
+
+Click Save
+
+D. Create MavenJava_Test Job
+1. New Item
+
+Click New Item
+
+Name: MavenJava_Test
+
+Select Freestyle Project
+
+Click OK
+
+2. Configure Job
+
+Description: “Test Java Build”
+
+3. No Git Required
+
+Under SCM select: None
+
+4. Add Build Step
+
+Click Add build step
+
+Select:
+Copy artifacts from another project
+
+In Project name enter:
+
+MavenJava
+
+
+In “Artifacts to copy” enter:
+
+**/*
+
+5. Add Post-Build Action
+
+Select Archive the artifacts
+(enter **/* again)
+
+6. Save
+
+Click Apply
+
+Click Save
+
+E. Jenkins Maven Web Build Pipeline (3 Jobs)
+
+(Build → Test → Deploy)
+
+These are three jobs:
+
+MavenWeb_Build
+
+MavenWeb_Test
+
+MavenWeb_Deploy
+
+1. Create MavenWeb_Build
+Steps
+
+New Item → name: MavenWeb_Build
+
+Type: Freestyle Project
+
+Source Code Management:
+
+Git → paste webapp repo URL
+
+Build steps:
+
+Add Build Step → Maven → goals:
+
+clean
+
+
+Add Build Step → Maven → goals:
+
+install
+
+
+Post Build Action:
+
+Archive artifacts: **/*
+
+Build other projects: MavenWeb_Test
+
+Click Save.
+
+2. Create MavenWeb_Test Job
+Steps
+
+New Item → name: MavenWeb_Test
+
+Type: Freestyle Project
+
+SCM: set to None
+
+Build steps:
+
+Add Build Step → Copy artifacts
+
+Project: MavenWeb_Build
+
+Artifacts: **/*
+
+Add Build Step → Maven → goals:
+
+test
+
+
+Post Build:
+
+Archive artifacts: **/*
+
+Build other projects: MavenWeb_Deploy
+
+Save.
+
+3. Create MavenWeb_Deploy Job
+Steps
+
+New Item → MavenWeb_Deploy
+
+SCM: None
+
+Build step:
+
+Copy artifacts from:
+
+MavenWeb_Test
+
+
+artifacts:
+
+**/*
+
+
+Post-build:
+
+Select Deploy war/ear to a container
+
+WAR file field enter:
+
+**/*.war
+
+
+Context Path:
+
+webpath
+
+
+Enter Tomcat credentials
+
+Enter URL:
+
+http://localhost:8080/
+
+
+Save.
+
+F. Create Pipeline View
+Steps
+
+On Jenkins Dashboard → click + next to "All"
+
+Type view name: MavenWeb_Pipeline
+
+Select:
+Build Pipeline View
+
+Upstream job: MavenWeb_Build
+
+Click Apply → Save
+
+You now see a graphical stage-style pipeline.
